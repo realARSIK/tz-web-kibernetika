@@ -1,0 +1,486 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+*/
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+*/
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+*/
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+*/
+:where(ul[class]) {
+  list-style: none;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+*/
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+*/
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями
+*/
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+*/
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+  */
+  height: 100%;
+  /**
+    Плавный скролл
+  */
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+  */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+  */
+  line-height: 160%;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+*/
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+*/
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+*/
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.demo {
+  height: 455px;
+  background-color: var(--color-lavender);
+  border-radius: 10px;
+  margin: 36px 40px;
+}
+.demo__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.demo__info {
+  width: 50%;
+  height: 100%;
+  padding: 72px;
+}
+.demo__image {
+  width: 50%;
+}
+.demo__image img {
+  width: 100%;
+  height: 455px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: bottom;
+     object-position: bottom;
+  border-radius: 0 10px 10px 0;
+}
+.demo__title {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 160%;
+  color: var(--color-blue);
+  margin: 0 0 18px 0;
+}
+.demo__text {
+  max-width: 100%;
+  width: 511px;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 160%;
+  color: var(--color-gray);
+  margin: 0 0 36px 0;
+}
+
+.btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-white);
+  border: 1px solid var(--color-capri-blue);
+  background-color: var(--color-capri-blue);
+  transition: all 0.4s;
+}
+.btn:hover {
+  color: var(--color-capri-blue);
+  background-color: transparent;
+}
+.btn--try-free {
+  width: 341px;
+  height: 68px;
+  border-radius: 60px;
+  padding: 12px 12px 12px 24px;
+}
+.btn--try-free svg {
+  width: 44px;
+  height: 44px;
+  background: var(--color-white);
+  border-radius: 40px;
+  padding: 10px;
+  transition: transform 0.45s;
+}
+.btn--try-free svg path {
+  stroke: var(--color-capri-blue);
+}
+.btn--try-free:hover svg {
+  background-color: var(--color-capri-blue);
+  transform: rotate(405deg);
+}
+.btn--try-free:hover svg path {
+  stroke: var(--color-white);
+}
+
+.sign-in__btn {
+  width: 100%;
+  height: 65px;
+  justify-content: center;
+  background-color: var(--color-blue);
+  border-radius: 4px;
+  padding: 18px 12px;
+  margin-bottom: 4px;
+}
+.sign-in__btn--close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 14px;
+  transition: all 0.4s;
+}
+.sign-in__btn--close svg {
+  stroke: var(--color-black);
+  transition: all 0.4s;
+}
+.sign-in__btn--close:hover {
+  box-shadow: 0 0 15px 1px #e4e4e4;
+}
+.sign-in__btn--close:hover svg {
+  rotate: 180deg;
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.3764705882);
+  opacity: 0;
+  visibility: hidden;
+  border: none;
+  background-color: var(--color-lavander-mdl);
+  padding: 0;
+  transition: all 0.4s;
+}
+.modal[open] {
+  opacity: 1;
+  visibility: visible;
+}
+.modal__content {
+  padding: 24px;
+}
+.modal__inner {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  padding-top: 56px;
+}
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.sign-in__main {
+  margin-bottom: 36px;
+}
+.sign-in a {
+  display: block;
+  font-weight: 500;
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--color-capri-blue);
+}
+.sign-in a:hover {
+  text-decoration: underline;
+}
+.sign-in__title {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--color-dark-gray);
+  margin: 0 0 18px 0;
+}
+.sign-in__input {
+  width: 100%;
+  height: 73px;
+  outline: none;
+  border: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: var(--color-light-blue);
+  padding: 24px;
+  margin-bottom: 4px;
+  transition: all 0.3s;
+}
+.sign-in__input:focus {
+  border: 1px solid var(--color-capri-blue);
+}
+.sign-in input[type=checkbox] {
+  color: var(--color-dark-gray);
+  margin: 0 14px 0 2px;
+  transform: scale(1.3);
+}
+.sign-in input::-moz-placeholder {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-blue);
+}
+.sign-in input::placeholder {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-blue);
+}
+.sign-in label[for=remember-pass] {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--color-dark-gray);
+  margin: 24px 0 24px 0;
+}
+
+@media screen and (max-width: 1440px) {
+  .demo__info {
+    width: 50%;
+    height: calc(100% - 144px);
+    padding: 72px;
+  }
+  .demo__text {
+    width: 511px;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .demo {
+    margin: 24px;
+  }
+  .demo__inner {
+    flex-direction: column;
+  }
+  .demo__info {
+    width: 100%;
+    height: 51%;
+    padding: 24px;
+  }
+  .demo__text {
+    width: 100%;
+    font-size: 15px;
+    margin: 0 0 18px 0;
+  }
+  .demo__image {
+    width: 100%;
+    height: 49%;
+  }
+  .demo__image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 10px 10px;
+  }
+  .demo__title {
+    font-size: 20px;
+    margin: 0 0 18px 0;
+  }
+  .btn svg {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+  }
+  .btn--try-free {
+    font-size: 15px;
+    padding: 10px 10px 10px 18px;
+    width: 261px;
+    height: 56px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .demo {
+    margin: 14px 24px;
+  }
+  .demo__title {
+    font-size: 17px;
+    margin: 0 0 14px 0;
+  }
+  .demo__text {
+    font-size: 13px;
+    margin: 0 0 18px 0;
+  }
+  .btn--try-free {
+    width: 279px;
+  }
+  .sign-in__main {
+    margin-bottom: 24px;
+  }
+  .sign-in a {
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--color-capri-blue);
+  }
+  .sign-in a:hover {
+    text-decoration: underline;
+  }
+  .sign-in__input {
+    font-size: 14px;
+  }
+  .sign-in input[type=checkbox] {
+    color: var(--color-dark-gray);
+    margin-right: 14px;
+    transform: scale(1.1);
+  }
+  .sign-in input::-moz-placeholder {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-blue);
+  }
+  .sign-in input::placeholder {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-blue);
+  }
+  .sign-in label[for=remember-pass] {
+    font-size: 14px;
+    margin: 18px 0 18px 0;
+  }
+  .sign-in__btn {
+    font-size: 14px;
+  }
+}
+:root {
+  --color-white: #FFFFFF;
+  --color-lavender: #EBF0FA;
+  --color-lavander-mdl: #F0F4FC;
+  --color-light-blue: #D7E2F6;
+  --color-blue: #1F4284;
+  --color-capri-blue: #244C98;
+  --color-black: #000000;
+  --color-gray: #727272;
+  --color-dark-gray: #323232;
+  --font-family: "Manrope", sans-serif;
+}
+
+body {
+  height: 100%;
+  font-family: var(--font-family);
+  background-color: var(--color-white);
+}
+
+.lock {
+  overflow: hidden;
+}/*# sourceMappingURL=style.css.map */
